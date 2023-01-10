@@ -1,6 +1,6 @@
 # KittyHook - HASHCAT WEBHOOK
 A hashcat simplifier with use of Webhooks when completed a task. <br />
-THIS IS WORK IN PROGRESS! <br />
+IT SUPPORTS WINDOWS AND LINUX (and MacOS)
 <br />
 # How to use:
 For windows: Move KittyHook.py into your Hashcat location. <br />

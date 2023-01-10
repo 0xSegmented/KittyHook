@@ -2,7 +2,7 @@
 A hashcat simplifier with use of Webhooks when completed a task. <br />
 IT SUPPORTS WINDOWS AND LINUX (and MacOS)
 <br />
-# How to use:
+## How to use:
 For windows: Move KittyHook.py into your Hashcat location. <br />
 bash: pip3 install requests <br />
 windows: python3 -m pip3 install requests <br />

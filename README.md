@@ -1,3 +1,5 @@
+![alt text](https://media.discordapp.net/attachments/1011600082682003560/1062400692972695582/foto_no_exif_1.jpg)
+
 # KittyHook - HASHCAT WEBHOOK
 A hashcat simplifier with use of Webhooks when completed a task. <br />
 IT SUPPORTS WINDOWS AND LINUX (and MacOS)

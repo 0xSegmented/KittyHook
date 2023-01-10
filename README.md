@@ -2,6 +2,7 @@
 
 # KittyHook - HASHCAT WEBHOOK
 A hashcat simplifier with use of Webhooks when completed a task. <br />
+It sends a webhook with: Cracked, Exhausted or Error <br />
 IT SUPPORTS WINDOWS AND LINUX (and MacOS)
 <br />
 ## How to use:
@@ -11,7 +12,7 @@ windows: python3 -m pip3 install requests <br />
 
 ! READ THE CODE ! <br />
 The code contains a place to set root directory of your wordlists folder! (this saves you some time) <br />
-The Telegram webhook <CHAT-ID> and <BOT-TOKEN> need to be changed too! <br />
+The Telegram webhook CHAT-ID and BOT-TOKEN need to be changed too! <br />
 <br />
 This program is only for Ethical use of recovering passwords from hashes. <br />
 Enjoy. (feel free to contribute) 

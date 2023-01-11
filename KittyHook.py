@@ -5,7 +5,7 @@ import requests             # MODULES
 # Specify root location for your wordlists | FOR WINDOWS USE double \\ !!
 wl = r'/path/to/your/wordlist/root/directory'
 hl = r'/path/to/your/hashlocations/root/directory'
-output = " | tee output.txt"
+output = " > output.txt"
 
 
 # Function, checking if you are using Windows or Unix-ish

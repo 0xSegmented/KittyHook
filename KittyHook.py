@@ -609,7 +609,7 @@ Hash-Mode = Hash-Name
         if choice in {1,2,3}: # You can finally make choices
             if choice == 1:
                 wordlist2 = input("Enter second wordlist path\n")
-                command1 = f"hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist},{wordlist2}"
+                command1 = f"hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist} {wordlist2}"
                 runnie = input(f"Want to run {command1}?\nY or N\n")
                 if runnie.lower() == "y":
                     os.system(f'{ps}{command1}{output}')

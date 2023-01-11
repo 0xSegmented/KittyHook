@@ -4,7 +4,14 @@ import requests             # MODULES
 
 # Specify root location for your wordlists | FOR WINDOWS USE double \\ !!
 wl = r'/path/to/your/wordlist/root/directory'
+hl = r'/path/to/your/hashlocations/root/directory'
 output = " > output.txt"
+
+
+
+
+
+
 
 # Function, checking if you are using Windows or Unix-ish
 def machinetype():
@@ -18,6 +25,12 @@ if machinetype() != 1:
 else:
     ps = ""
     exe = ""
+
+def stat():
+    if machinetype() == 2:
+        return os.system('powershell type output.txt')
+    else:
+        return os.system('cat output.txt')
 
 # FILL IN THE <BETWEEN>
 def webhook(text):
@@ -592,7 +605,7 @@ Hash-Mode = Hash-Name
 5000      = SHA-3 (Keccak)                                                            
           """)
     hashtype = int(input('Enter hash type:\n'))
-    hashpath = input('Enter hash path:\n')
+    hashpath = hl+input(f'Enter hash path:\n{hl}')
     wordlist = wl+input(f"Enter wordlist path:\n{wl}")
     command = f"hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist}"
     run = input(f'Do you want to run {command}?\nY or N\n')
@@ -608,6 +621,7 @@ Hash-Mode = Hash-Name
                     webhook("Done.") # Returning the webhook, with text
                     result = status()
                     webhook(f"Status: {result}")
+                    stat()
                 else:
                     ext = input("Add syntax\n")
                     command3 = f"{command1} {ext}"
@@ -619,6 +633,7 @@ Hash-Mode = Hash-Name
                         result = status()
                         webhook("Done.")
                         webhook(f"Status: {result}")
+                        stat()
             elif choice == 2:
                 ext = input(f"Add syntax\n{command}")
                 command4 = f"{command} {ext}"
@@ -630,6 +645,7 @@ Hash-Mode = Hash-Name
                     result = status()
                     webhook("Done.")
                     webhook(f"Status: {result}")
+                    stat()
             elif choice == 3:
                 command5 = f"hashcat{exe} -m 100 -b"
                 print(f"{command5}")
@@ -637,6 +653,7 @@ Hash-Mode = Hash-Name
                 if choice2.lower() != "y":
                     os.system(f'{ps}{command5}{output}')
                     webhook("Benchmark+Done")
+                    stat()
                 else:
                     syntax2 = input(f"Enter syntax:\n{command5}")
                     print(f"{command5}{syntax}")
@@ -646,6 +663,7 @@ Hash-Mode = Hash-Name
                     else:
                         os.system(f'{ps}{command5}{syntax2}{output}')
                         webhook("Benchmark+Done")
+                        stat()
             elif choice == 4:
                 freestyle = input("Write your hashcat syntax:\n")
                 choice4 = input(f"Run it?\n{freestyle}\n")
@@ -656,6 +674,7 @@ Hash-Mode = Hash-Name
                     result = status()
                     webhook("Done.")
                     webhook(f"Status: {result}")
+                    stat()
         else:
             print("Does not exist") # You did something wrong!
     else: 
@@ -663,6 +682,7 @@ Hash-Mode = Hash-Name
         result = status()
         webhook("Done.")
         webhook(f"Status: {result}")
+        stat()
         
 
 print("""

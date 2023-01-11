@@ -1,12 +1,21 @@
-import os                   # IMPORTING
+# Update log:
+# Replaced os module with subprocesses.
+# why? This makes the code shorter and cleaner, also gives more capabilities.
+
 from sys import platform    # NEEDED
 import requests             # MODULES
+import subprocess           # IMPORTED
 
 # Specify root location for your wordlists | FOR WINDOWS USE double \\ !!
-wl = r'/path/to/your/wordlist/root/directory'
-hl = r'/path/to/your/hashlocations/root/directory'
-output = " > output.txt"
+wl = r'/path/to/wordlist'
+hl = r'/path/to/hashes'
 
+# The command code
+def run(gogo):
+    if platform == "win32":
+        subprocess.run(["powershell", "-Command", f"{gogo}", "| tee output.txt"], shell=True)
+    else:
+        subprocess.run([f"{gogo} | tee output.txt"], shell=True)
 
 # Function, checking if you are using Windows or Unix-ish
 def machinetype():
@@ -14,18 +23,18 @@ def machinetype():
         return 1
     else:
         return 2
-if machinetype() != 1:
-    ps = "powershell .\\"
-    exe = ".exe"
-else:
-    ps = ""
-    exe = ""
 
+if machinetype() != 1:
+    exe = ".exe"
+    runit = ".\\"
+else:
+    exe = ""
+    runit = ""
 def stat():
     if machinetype() == 2:
-        return os.system('powershell type output.txt')
+        return run("type output.txt")
     else:
-        return os.system('cat output.txt')
+        return run("cat output.txt")
 
 # FILL IN THE <BETWEEN>
 def webhook(text):
@@ -602,17 +611,17 @@ Hash-Mode = Hash-Name
     hashtype = int(input('Enter hash type:\n'))
     hashpath = hl+input(f'Enter hash path:\n{hl}')
     wordlist = wl+input(f"Enter wordlist path:\n{wl}")
-    command = f"hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist}"
-    run = input(f'Do you want to run {command}?\nY or N\n')
-    if run.lower() != 'y': # Check if you agree with the syntax
+    com = (f"{runit}hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist}")
+    go = input(f'Do you want to run {com}?\nY or N\n')
+    if go.lower() != 'y': # Check if you agree with the syntax
         choice = int(input("Make a choice:\n1: More wordlists\n2: Add extension\n3: Benchmark\n4: Free Style\n"))
-        if choice in {1,2,3}: # You can finally make choices
+        if choice in {1,2,3,4}: # You can finally make choices
             if choice == 1:
                 wordlist2 = input("Enter second wordlist path\n")
-                command1 = f"hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist} {wordlist2}"
+                command1 = f"{runit}hashcat{exe} -m {hashtype} {hashpath} --wordlist {wordlist} {wordlist2}"
                 runnie = input(f"Want to run {command1}?\nY or N\n")
                 if runnie.lower() == "y":
-                    os.system(f'{ps}{command1}{output}')
+                    run(f"{com}")
                     webhook("Done.") # Returning the webhook, with text
                     result = status()
                     webhook(f"Status: {result}")
@@ -624,62 +633,64 @@ Hash-Mode = Hash-Name
                     if run3 != "Y":
                         exit()
                     else:
-                        os.system(f'{ps}{command3}{output}')
+                        run(f"{command3}")
                         result = status()
                         webhook("Done.")
                         webhook(f"Status: {result}")
                         stat()
             elif choice == 2:
-                ext = input(f"Add syntax\n{command}")
-                command4 = f"{command} {ext}"
+                ext = input(f"Add syntax\n{com}")
+                command4 = f"{com} {ext}"
                 run4 = input(f"Run: {command4}?\nY or N\n")
                 if run4.lower() != "y":
                     exit()
                 else:
-                    os.system(f'{ps}{command4}{output}')
+                    run(f"{command4}")
                     result = status()
                     webhook("Done.")
                     webhook(f"Status: {result}")
                     stat()
             elif choice == 3:
-                command5 = f"hashcat{exe} -m 100 -b"
+                command5 = f"{runit}hashcat{exe} -m 100 -b"
                 print(f"{command5}")
                 choice2 = input("Want to add more syntax?\nY or N\n")
                 if choice2.lower() != "y":
-                    os.system(f'{ps}{command5}{output}')
+                    run(f"{command5}")
                     webhook("Benchmark+Done")
                     stat()
                 else:
                     syntax2 = input(f"Enter syntax:\n{command5}")
-                    print(f"{command5}{syntax}")
+                    print(f"{command5}{syntax2}")
                     check = input(f"is this correct?:\nY or N\n")
                     if check.lower() != "y":
                         exit()
                     else:
-                        os.system(f'{ps}{command5}{syntax2}{output}')
+                        run(f"{command5}{syntax2}")
                         webhook("Benchmark+Done")
                         stat()
-            elif choice == 4:
+            elif choice == 4: # When you still want a Webhook, but don't want pre-made syntax.
                 freestyle = input("Write your hashcat syntax:\n")
-                choice4 = input(f"Run it?\n{freestyle}\n")
+                choice4 = input(f"Run it?\n{freestyle}\nY / N: ")
                 if choice4.lower() != "y":
                     exit()
                 else:
-                    os.system(f'{ps}{freestyle}{output}')
+                    run(f"{freestyle}")
                     result = status()
                     webhook("Done.")
                     webhook(f"Status: {result}")
                     stat()
         else:
             print("Does not exist") # You did something wrong!
-    else: 
-        os.system(f'{ps}{command}{output}')    
+    else: # Running default hashcat syntax
+        run(f"{com}")
         result = status()
         webhook("Done.")
         webhook(f"Status: {result}")
         stat()
         
-
+# Show love for the support
 print("""
-♡ ♡ ♡ ♡ ♡ ♡ ♡
+♡ ♡ ♡ Thank you for using my tool ♡ ♡ ♡ ♡
+        credits: @MaliciousXatt
       """)
+# And of course HASHCAT for the tool itself!

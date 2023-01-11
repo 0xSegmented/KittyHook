@@ -8,11 +8,6 @@ hl = r'/path/to/your/hashlocations/root/directory'
 output = " > output.txt"
 
 
-
-
-
-
-
 # Function, checking if you are using Windows or Unix-ish
 def machinetype():
     if platform != "win32":

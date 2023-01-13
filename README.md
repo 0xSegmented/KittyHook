@@ -10,7 +10,7 @@ For windows: Move KittyHook.py into your Hashcat location. <br />
 bash: pip3 install requests <br />
 windows: python3 -m pip3 install requests <br />
 
-! READ THE CODE ! <br />
+##### ! READ THE CODE ! <br />
 The code contains a place to set root directory of your wordlists folder! (this saves you some time) <br />
 The Telegram webhook CHAT-ID and BOT-TOKEN need to be changed too! <br />
 <br />

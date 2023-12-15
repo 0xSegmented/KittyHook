@@ -691,6 +691,5 @@ Hash-Mode = Hash-Name
 # Show love for the support
 print("""
 ♡ ♡ ♡ Thank you for using my tool ♡ ♡ ♡ ♡
-        credits: @MaliciousXatt
       """)
 # And of course HASHCAT for the tool itself!
